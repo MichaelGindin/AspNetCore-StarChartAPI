@@ -66,14 +66,14 @@ namespace StarChart.Controllers
             _context.CelestialObjects.Add(celestialObject);
             _context.SaveChanges();
 
-            return CreatedAtRoute("GetById", new { celestialObject.Id });
+            return CreatedAtRoute("GetById", new { id = celestialObject.Id },celestialObject);
         }
 
         [HttpPut("{id}")]
         public IActionResult Update(int id, CelestialObject celestialObject)
         {
             var celestialObjectToUpdate = _context.CelestialObjects.Find(id);
-            if (celestialObjectToUpdate != null)
+            if (celestialObjectToUpdate == null)
                 return NotFound();
             celestialObjectToUpdate.Name = celestialObject.Name;
             celestialObjectToUpdate.OrbitalPeriod = celestialObject.OrbitalPeriod;
